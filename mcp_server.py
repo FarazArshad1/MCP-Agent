@@ -18,11 +18,13 @@ def fetch_quarterly_financials(symbol: str) -> DataFrame:
     stock = yf.Ticker(symbol)
     return stock.quarterly_financials.T
 
+
 @mcp.tool()
 def fecth_annual_financials(symbol: str) -> DataFrame:
     """Get the annual report of stocks"""
     stock = yf.Ticker(symbol)
     return stock.financials.T
+
 
 if __name__ == "__main__":
     mcp.run(transport="stdio")
