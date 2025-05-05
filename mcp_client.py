@@ -5,7 +5,6 @@ from langgraph.prebuilt import create_react_agent
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 from dotenv import load_dotenv
-
 load_dotenv()
 
 model = ChatOpenAI(model="gpt-4o")
