@@ -8,3 +8,20 @@ from dotenv import load_dotenv
 load_dotenv()
 
 model = ChatOpenAI(model="gpt-4o")
+server_params = StdioServerParameters(
+    command="python",
+    args=["mcp_server.py"],
+)
+
+async def main():
+    async with stdio_client(server_params) as (read, write):
+       async with ClientSession(read, write) as session:
+           await session.initialize()
+           tools = await load_mcp_tools(session)
+           
+           agent = create_react_agent(model, tools)
+           agent_response = await agent.ainvoke({"messages":"Analyze how revenue of MSFT is chaning over time"})
+           print(agent_response)
+           
+if __name__ == "__main__":
+    asyncio.run(main())
